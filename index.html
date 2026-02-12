@@ -3,318 +3,309 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Notre Histoire ❤️</title>
-
-<script src="https://cdn.jsdelivr.net/npm/fireworks-js@2/dist/index.umd.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-
+<title>Love Experience</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
-
-*{box-sizing:border-box;}
-
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
+    font-family:'Poppins',sans-serif;
     overflow:hidden;
-    background:black;
+    background:linear-gradient(270deg,#ff9a9e,#fad0c4,#fad0c4,#ffdde1);
+    background-size:600% 600%;
+    animation:bgMove 12s ease infinite;
 }
 
-/* NETFLIX INTRO */
-
-.intro{
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:black;
-    color:#e50914;
-    font-size:clamp(3rem,8vw,6rem);
-    font-weight:bold;
-    letter-spacing:8px;
-    animation:introAnim 3s forwards;
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
 
-@keyframes introAnim{
-    0%{opacity:0; transform:scale(0.7);}
-    40%{opacity:1;}
-    100%{opacity:0; transform:scale(1.4);}
+/* START SCREEN */
+#startScreen{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+color:white;
+z-index:999;
+cursor:pointer;
 }
 
+.netflix-logo{
+font-size:3rem;
+color:#e50914;
+letter-spacing:4px;
+animation:zoomIn 1.5s ease;
+}
 
-/* Floating hearts */
+.tap{
+margin-top:20px;
+opacity:.8;
+animation:pulse 1.5s infinite;
+}
 
-.heart{
-    position:absolute;
-    bottom:-20px;
-    font-size:20px;
-    animation:float 6s linear infinite;
+@keyframes pulse{
+0%,100%{opacity:.3}
+50%{opacity:1}
+}
+
+@keyframes zoomIn{
+from{transform:scale(.3);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+/* MAIN */
+.container{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.title{
+font-family:'Great Vibes',cursive;
+font-size:clamp(2.5rem,6vw,5rem);
+color:white;
+text-shadow:0 0 20px rgba(255,255,255,.9);
+animation:float 4s ease-in-out infinite;
 }
 
 @keyframes float{
-    from{
-        transform:translateY(0);
-        opacity:1;
-    }
-    to{
-        transform:translateY(-110vh);
-        opacity:0;
-    }
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
 }
 
-/* Romantic animated background */
-
-.bg{
-    position:fixed;
-    inset:0;
-    background:linear-gradient(270deg,#ff9a9e,#fad0c4,#fad0c4,#ffdde1);
-    background-size:600% 600%;
-    animation:gradient 12s ease infinite;
+.letter{
+max-width:700px;
+background:rgba(255,255,255,.2);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:20px;
+margin-top:25px;
+color:white;
+animation:fadeIn 2s ease;
 }
 
-@keyframes gradient{
-    0%{background-position:0%}
-    50%{background-position:100%}
-    100%{background-position:0%}
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:translateY(0)}
 }
-
-/* Main UI */
-
-.container{
-    position:relative;
-    z-index:2;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:40px;
-    text-align:center;
-}
-
-h1{
-    font-size:clamp(2.5rem,5vw,4rem);
-    color:white;
-}
-
-/* Compatibility meter */
 
 .compat{
-    margin-top:20px;
-    font-size:1.4rem;
-    color:white;
+margin-top:20px;
+width:min(90vw,400px);
+height:20px;
+background:rgba(255,255,255,.3);
+border-radius:20px;
+overflow:hidden;
 }
 
-/* Tablet friendly buttons */
+.bar{
+height:100%;
+width:0;
+background:linear-gradient(90deg,#ff4d6d,#ff758f);
+transition:width .3s;
+}
 
 .buttons{
-    margin-top:60px;
-    width:min(600px,90%);
-    display:flex;
-    justify-content:space-between;
+margin-top:30px;
+position:relative;
+width:100%;
+height:200px;
 }
 
 button{
-    padding:22px 40px;
-    font-size:1.3rem;
-    border:none;
-    border-radius:18px;
-    cursor:pointer;
+padding:15px 25px;
+border:none;
+border-radius:30px;
+font-size:1.1rem;
+cursor:pointer;
+position:absolute;
 }
 
-#yes{
-    background:#ff4d6d;
-    color:white;
+#yesBtn{
+background:#ff4d6d;
+color:white;
+left:40%;
 }
 
-#no{
-    background:#222;
-    color:white;
+#noBtn{
+background:white;
 }
 
-/* LOVE LETTER */
-
-.letter{
-    position:fixed;
-    inset:0;
-    background:#fff8f0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:30px;
+/* POPUP */
+#popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.8);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:1000;
 }
 
-.paper{
-    max-width:750px;
-    font-size:clamp(1.4rem,2.5vw,2rem);
-    line-height:1.6;
-    background:white;
-    padding:50px;
-    border-radius:14px;
-    box-shadow:0 30px 80px rgba(0,0,0,.3);
+.popup-box{
+background:white;
+padding:40px;
+border-radius:20px;
+text-align:center;
+animation:zoomIn .5s;
 }
 
-#fireworks{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
+/* petals */
+.petal{
+position:fixed;
+top:-20px;
+font-size:20px;
+animation:fall linear forwards;
 }
 
-#qr{
-    margin-top:30px;
+@keyframes fall{
+to{transform:translateY(110vh) rotate(360deg)}
+}
+
+@media (max-width:900px){
+.buttons{height:250px}
 }
 
 </style>
 </head>
-
 <body>
 
-<div class="intro">LOVE</div>
-
-<div class="bg"></div>
-
-<div class="container" id="app" style="display:none;">
-
-<h1>Tu veux être ma Valentine ? ❤️</h1>
-
-<div class="compat" id="compat">
-Compatibilité amoureuse : 12%
+<div id="startScreen">
+<div class="netflix-logo">LOVEFLIX</div>
+<div class="tap">Appuie pour commencer ❤️</div>
 </div>
 
-<div class="buttons">
-<button id="yes">OUI 😍</button>
-<button id="no">Non 😢</button>
+<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b4b7b0d6b.mp3?filename=romantic-background-112191.mp3" loop></audio>
+<audio id="voice" src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_550b6f4c10.mp3?filename=love-voice-140881.mp3"></audio>
+
+<div class="container">
+<div class="title">Veux-tu être avec moi ? 💖</div>
+
+<div class="letter" id="letter">
+Depuis que je t'ai rencontrée, tout ressemble à un film Disney... 🌸
 </div>
 
+<div class="compat">
+<div class="bar" id="bar"></div>
 </div>
 
-<div id="fireworks"></div>
+<div class="buttons" id="btnArea">
+<button id="yesBtn">OUI ❤️</button>
+<button id="noBtn">NON 😭</button>
+</div>
+</div>
+
+<div id="popup">
+<div class="popup-box">
+<h2>Sayez wesh joue pas avec moi toi !<br>Accepte maintenant !</h2>
+<button onclick="accept()">D'accord ❤️</button>
+</div>
+</div>
 
 <script>
+const start = document.getElementById('startScreen');
+const music = document.getElementById('music');
+const voice = document.getElementById('voice');
+const bar = document.getElementById('bar');
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const popup = document.getElementById('popup');
 
+let compat = 0;
+let movesAfter100 = 0;
 
+start.addEventListener('click',()=>{
+start.style.display='none';
+music.play();
+voice.play();
+startPetals();
+});
 
-setTimeout(()=>{
-    document.querySelector(".intro").remove();
-    document.getElementById("app").style.display="flex";
-},3000);
-
-
-/* Compatibility meter */
-
-let compat=12;
-const compatText=document.getElementById("compat");
-
-/* Begging NO button */
-
-const noBtn=document.getElementById("no");
-
-const messages=[
-"Non ? vraiment ? 😭",
-"Tu es sûre ? 🥺",
-"Réfléchis encore ❤️",
-"Mon coeur va crash 💔",
-"Je cuisine pour toi ! 🍝",
-"Ok j'abandonne… clique oui 😭"
-];
-
-function moveNo(){
-
-compat+=15;
-if(compat>100) compat=100;
-
-compatText.innerHTML="Compatibilité amoureuse : "+compat+"%";
-
-noBtn.innerText=messages[Math.min(messages.length-1, compat/15)];
-
-const x=Math.random()*(window.innerWidth-150);
-const y=Math.random()*(window.innerHeight-80);
-
-noBtn.style.position="absolute";
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
+function startPetals(){
+setInterval(()=>{
+const p=document.createElement('div');
+p.className='petal';
+p.innerHTML='🌸';
+p.style.left=Math.random()*100+'vw';
+p.style.animationDuration=3+Math.random()*5+'s';
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),8000);
+},300);
 }
 
-noBtn.addEventListener("mouseover",moveNo);
-noBtn.addEventListener("touchstart",(e)=>{
-e.preventDefault();
-moveNo();
+function increaseCompat(){
+if(compat<100){
+compat+=20;
+bar.style.width=compat+'%';
+}
+}
+
+function moveNo(){
+const area=document.getElementById('btnArea');
+const maxX=area.clientWidth-120;
+const maxY=area.clientHeight-60;
+
+noBtn.style.left=Math.random()*maxX+'px';
+noBtn.style.top=Math.random()*maxY+'px';
+
+increaseCompat();
+
+if(compat===100){
+movesAfter100++;
+if(movesAfter100>=5){
+popup.style.display='flex';
+}
+}
+}
+
+noBtn.addEventListener('mouseenter',moveNo);
+noBtn.addEventListener('touchstart',moveNo);
+
+yesBtn.addEventListener('click',()=>{
+confetti({particleCount:200,spread:120});
+fireworks();
 });
-// Floating hearts generator
-setInterval(()=>{
-    const heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤️";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(Math.random()*20+10)+"px";
-    heart.style.animationDuration=(Math.random()*3+3)+"s";
 
-    document.body.appendChild(heart);
+function fireworks(){
+let duration=2000;
+let end=Date.now()+duration;
 
-    setTimeout(()=>heart.remove(),6000);
-
-},300);
-
-
-/* FIREWORKS + LETTER */
-
-document.getElementById("yes").onclick=()=>{
-
-const container=document.getElementById("fireworks");
-
-const fireworks = new Fireworks.default(container,{
-    rocketsPoint:50,
-    intensity:6
+(function frame(){
+confetti({
+particleCount:5,
+angle:60,
+spread:55,
+origin:{x:0}
+});
+confetti({
+particleCount:5,
+angle:120,
+spread:55,
+origin:{x:1}
 });
 
-fireworks.start();
+if(Date.now()<end){
+requestAnimationFrame(frame);
+}
+})();
+}
 
-/* voice */
-
-const speech=new SpeechSynthesisUtterance(`
-Depuis que tu es entrée dans ma vie,
-tout est devenu plus beau.
-Alors écrivons notre histoire ensemble.
-`);
-
-speech.rate=1;
-speech.pitch=-2;
-
-speechSynthesis.speak(speech);
-
-setTimeout(()=>{
-
-document.body.innerHTML=`
-<div class="letter">
-<div class="paper">
-❤️ À toi ❤️ <br><br>
-
-Depuis le premier jour, j’ai su que quelque chose était différent.
-
-Ton sourire est mon endroit préféré,
-ton rire ma mélodie,
-et tes bras… mon refuge.
-
-Alors laisse-moi te poser une seule question :
-
-On écrit cette histoire ensemble ? 💕
-
-<div id="qr"></div>
-
-</div>
-</div>
-`;
-
-QRCode.toCanvas(document.getElementById('qr'),
-window.location.href,
-{width:160});
-
-},2500);
-
-};
-
+function accept(){
+popup.style.display='none';
+confetti({particleCount:300,spread:180});
+}
 </script>
 
 </body>
 </html>
+
