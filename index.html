@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Notre Histoire ❤️</title>
+
+<script src="https://cdn.jsdelivr.net/npm/fireworks-js@2/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+<style>
+
+*{box-sizing:border-box;}
+
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+    background:black;
+}
+
+/* NETFLIX INTRO */
+
+.intro{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:black;
+    color:#e50914;
+    font-size:clamp(3rem,8vw,6rem);
+    font-weight:bold;
+    letter-spacing:8px;
+    animation:introAnim 3s forwards;
+}
+
+@keyframes introAnim{
+    0%{opacity:0; transform:scale(0.7);}
+    40%{opacity:1;}
+    100%{opacity:0; transform:scale(1.4);}
+}
+
+
+/* Floating hearts */
+
+.heart{
+    position:absolute;
+    bottom:-20px;
+    font-size:20px;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(0);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-110vh);
+        opacity:0;
+    }
+}
+
+/* Romantic animated background */
+
+.bg{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(270deg,#ff9a9e,#fad0c4,#fad0c4,#ffdde1);
+    background-size:600% 600%;
+    animation:gradient 12s ease infinite;
+}
+
+@keyframes gradient{
+    0%{background-position:0%}
+    50%{background-position:100%}
+    100%{background-position:0%}
+}
+
+/* Main UI */
+
+.container{
+    position:relative;
+    z-index:2;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+    text-align:center;
+}
+
+h1{
+    font-size:clamp(2.5rem,5vw,4rem);
+    color:white;
+}
+
+/* Compatibility meter */
+
+.compat{
+    margin-top:20px;
+    font-size:1.4rem;
+    color:white;
+}
+
+/* Tablet friendly buttons */
+
+.buttons{
+    margin-top:60px;
+    width:min(600px,90%);
+    display:flex;
+    justify-content:space-between;
+}
+
+button{
+    padding:22px 40px;
+    font-size:1.3rem;
+    border:none;
+    border-radius:18px;
+    cursor:pointer;
+}
+
+#yes{
+    background:#ff4d6d;
+    color:white;
+}
+
+#no{
+    background:#222;
+    color:white;
+}
+
+/* LOVE LETTER */
+
+.letter{
+    position:fixed;
+    inset:0;
+    background:#fff8f0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.paper{
+    max-width:750px;
+    font-size:clamp(1.4rem,2.5vw,2rem);
+    line-height:1.6;
+    background:white;
+    padding:50px;
+    border-radius:14px;
+    box-shadow:0 30px 80px rgba(0,0,0,.3);
+}
+
+#fireworks{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+}
+
+#qr{
+    margin-top:30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="intro">LOVE</div>
+
+<div class="bg"></div>
+
+<div class="container" id="app" style="display:none;">
+
+<h1>Tu veux être ma Valentine ? ❤️</h1>
+
+<div class="compat" id="compat">
+Compatibilité amoureuse : 12%
+</div>
+
+<div class="buttons">
+<button id="yes">OUI 😍</button>
+<button id="no">Non 😢</button>
+</div>
+
+</div>
+
+<div id="fireworks"></div>
+
+<script>
+
+
+
+setTimeout(()=>{
+    document.querySelector(".intro").remove();
+    document.getElementById("app").style.display="flex";
+},3000);
+
+
+/* Compatibility meter */
+
+let compat=12;
+const compatText=document.getElementById("compat");
+
+/* Begging NO button */
+
+const noBtn=document.getElementById("no");
+
+const messages=[
+"Non ? vraiment ? 😭",
+"Tu es sûre ? 🥺",
+"Réfléchis encore ❤️",
+"Mon coeur va crash 💔",
+"Je cuisine pour toi ! 🍝",
+"Ok j'abandonne… clique oui 😭"
+];
+
+function moveNo(){
+
+compat+=15;
+if(compat>100) compat=100;
+
+compatText.innerHTML="Compatibilité amoureuse : "+compat+"%";
+
+noBtn.innerText=messages[Math.min(messages.length-1, compat/15)];
+
+const x=Math.random()*(window.innerWidth-150);
+const y=Math.random()*(window.innerHeight-80);
+
+noBtn.style.position="absolute";
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
+
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",(e)=>{
+e.preventDefault();
+moveNo();
+});
+// Floating hearts generator
+setInterval(()=>{
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+10)+"px";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),6000);
+
+},300);
+
+
+/* FIREWORKS + LETTER */
+
+document.getElementById("yes").onclick=()=>{
+
+const container=document.getElementById("fireworks");
+
+const fireworks = new Fireworks.default(container,{
+    rocketsPoint:50,
+    intensity:6
+});
+
+fireworks.start();
+
+/* voice */
+
+const speech=new SpeechSynthesisUtterance(`
+Depuis que tu es entrée dans ma vie,
+tout est devenu plus beau.
+Alors écrivons notre histoire ensemble.
+`);
+
+speech.rate=1;
+speech.pitch=-2;
+
+speechSynthesis.speak(speech);
+
+setTimeout(()=>{
+
+document.body.innerHTML=`
+<div class="letter">
+<div class="paper">
+❤️ À toi ❤️ <br><br>
+
+Depuis le premier jour, j’ai su que quelque chose était différent.
+
+Ton sourire est mon endroit préféré,
+ton rire ma mélodie,
+et tes bras… mon refuge.
+
+Alors laisse-moi te poser une seule question :
+
+On écrit cette histoire ensemble ? 💕
+
+<div id="qr"></div>
+
+</div>
+</div>
+`;
+
+QRCode.toCanvas(document.getElementById('qr'),
+window.location.href,
+{width:160});
+
+},2500);
+
+};
+
+</script>
+
+</body>
+</html>
