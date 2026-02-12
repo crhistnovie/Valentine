@@ -59,6 +59,16 @@ from{transform:scale(.3);opacity:0}
 to{transform:scale(1);opacity:1}
 }
 
+/* Floating hearts */
+
+.heart{
+    position:fixed;
+    top:-20px;
+    font-size:20px;
+    animation:fall linear forwards;
+}
+
+
 /* MAIN */
 .container{
 height:100vh;
@@ -185,11 +195,11 @@ to{transform:translateY(110vh) rotate(360deg)}
 <div class="tap">Appuie pour commencer ❤️</div>
 </div>
 
-<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b4b7b0d6b.mp3?filename=romantic-background-112191.mp3" loop></audio>
-<audio id="voice" src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_550b6f4c10.mp3?filename=love-voice-140881.mp3"></audio>
+<audio id="music" src="Rihanna, Justin Timberlake - Rehab (Lyrics Video) 🎤.mp3" loop></audio>
+<audio id="voice" src="Rihanna, Justin Timberlake - Rehab (Lyrics Video) 🎤.mp3"></audio>
 
 <div class="container">
-<div class="title">Veux-tu être avec moi ? 💖</div>
+<div class="title">Veux-tu être ma valentine moi ? 💖</div>
 
 <div class="letter" id="letter">
 Depuis que je t'ai rencontrée, tout ressemble à un film Disney... 🌸
@@ -230,6 +240,21 @@ music.play();
 voice.play();
 startPetals();
 });
+
+// Floating hearts generator
+setInterval(()=>{
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+10)+"px";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),6000);
+
+},300);
 
 function startPetals(){
 setInterval(()=>{
@@ -304,6 +329,8 @@ function accept(){
 popup.style.display='none';
 confetti({particleCount:300,spread:180});
 }
+
+
 </script>
 
 </body>
