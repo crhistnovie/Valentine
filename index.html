@@ -169,6 +169,13 @@ border-radius:20px;
 text-align:center;
 animation:zoomIn .5s;
 }
+.popup2-box{
+background:white;
+padding:40px;
+border-radius:20px;
+text-align:center;
+animation:zoomIn .5s;
+}
 
 /* petals */
 .petal{
@@ -186,20 +193,66 @@ to{transform:translateY(110vh) rotate(360deg)}
 .buttons{height:250px}
 }
 
+/* LOVE VIDEO SCREEN */
+
+#loveScreen{
+position:fixed;
+inset:0;
+background:linear-gradient(135deg,#ff758f,#ff7eb3);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:2000;
+padding:40px;
+gap:50px;
+flex-wrap:wrap;
+text-align:center;
+}
+
+.loveMessage{
+font-size:clamp(2rem,4vw,3rem);
+color:white;
+max-width:500px;
+font-family:'Great Vibes',cursive;
+}
+
+/* HEART VIDEO */
+
+.heartVideo{
+width:300px;
+height:300px;
+object-fit:cover;
+
+/* forme coeur */
+clip-path: path("M150 270 L30 150 A60 60 0 1 1 150 70 A60 60 0 1 1 270 150 Z");
+
+box-shadow:0 20px 60px rgba(0,0,0,.4);
+animation:heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat{
+0%{transform:scale(1)}
+25%{transform:scale(1.05)}
+40%{transform:scale(1)}
+60%{transform:scale(1.08)}
+100%{transform:scale(1)}
+}
+
+
 </style>
 </head>
 <body>
 
 <div id="startScreen">
 <div class="netflix-logo">LOVEFLIX</div>
-<div class="tap">Appuie pour commencer ❤️</div>
+<div class="tap">Appuie pour commencer ma Capu ❤️</div>
 </div>
 
 <audio id="music" src="Rihanna, Justin Timberlake - Rehab (Lyrics Video) 🎤.mp3" loop></audio>
 <audio id="voice" src=""></audio>
 
 <div class="container">
-<div class="title">Veux-tu être ma valentine à moi ? 💖</div>
+<div class="title">Veux-tu être ma valentine moi Capucine Clot? 💖</div>
 
 <div class="letter" id="letter">
 Depuis que je t'ai rencontrée, tout ressemble à un film Disney... 🌸
@@ -209,7 +262,7 @@ Depuis que je t'ai rencontrée, tout ressemble à un film Disney... 🌸
 <div class="bar" id="bar"></div>
 </div>
 
-<div class="buttons" id="btnArea">
+<div class="buttons align-center" id="btnArea">
 <button id="yesBtn">OUI ❤️</button>
 <button id="noBtn">NON 😭</button>
 </div>
@@ -217,9 +270,30 @@ Depuis que je t'ai rencontrée, tout ressemble à un film Disney... 🌸
 
 <div id="popup">
 <div class="popup-box">
-<h2>Sayez wesh!<br> Joue pas avec moi toi 😭!<br>Accepte maintenant !</h2>
+<h2>Sayez wesh joue pas avec moi bb zebi !<br>Accepte maintenant !</h2>
 <button onclick="accept()">D'accord ❤️</button>
 </div>
+</div>
+
+<div id="popup2">
+<div class="popup-box">
+<h2>Sayez wesh joue pas avec moi toi !<br>Accepte maintenant !</h2>
+<button onclick="accept()">D'accord ❤️</button>
+</div>
+</div>
+
+<div id="loveScreen">
+
+<div class="loveMessage">
+Elle a dit OUI !!! ❤️<br><br>
+Prépare-toi pour la plus belle histoire de ta vie ✨
+<br> Je t'aime Capucine Clot et Joyeux St. Valentin baby ❤️
+</div>
+
+<video class="heartVideo" autoplay loop muted playsinline>
+<source src="LoveStory.mp4" type="video/mp4">
+</video>
+
 </div>
 
 <script>
@@ -299,6 +373,8 @@ noBtn.addEventListener('touchstart',moveNo);
 yesBtn.addEventListener('click',()=>{
 confetti({particleCount:200,spread:120});
 fireworks();
+/* affiche l'écran love */
+document.getElementById("loveScreen").style.display="flex";
 });
 
 function fireworks(){
